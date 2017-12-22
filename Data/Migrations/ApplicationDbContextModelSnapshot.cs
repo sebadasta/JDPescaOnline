@@ -39,6 +39,9 @@ namespace JDPesca.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
 
@@ -52,6 +55,9 @@ namespace JDPesca.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Surname")
+                        .IsRequired();
 
                     b.Property<bool>("TwoFactorEnabled");
 
