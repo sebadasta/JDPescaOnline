@@ -1,0 +1,42 @@
+@model JDPesca.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h2>Detalles del Usuario: @Html.DisplayFor(model => model.UserName)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Usuario:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            Email:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            Email Confirmado:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EmailConfirmed)
+        </dd>
+        <dt>
+            Telefono de COntacto:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Editar</a> |
+    <a asp-action="ContactList">Volver a la lista</a>
+</div>

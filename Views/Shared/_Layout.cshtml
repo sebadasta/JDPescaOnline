@@ -1,0 +1,401 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using JDPesca.Models
+@using JDPesca.Controllers
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - JDPesca</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+
+                            <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+
+    </environment>
+</head>
+<body>
+
+<!--Shopping Cart BTN-->
+
+@if (SignInManager.IsSignedIn(User)){
+				<div class=" fixedBtn">
+				<button id="btnShowModal" type="button" asp-controller="Home" asp-action="ModalPopUp" class=" btn btn-black btn-circle btn-lg"><i class="glyphicon glyphicon-shopping-cart"></i></button>
+                 <span id="badgeText" class="badge badge-notify"></span>
+                   </div>
+
+               }
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+              <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">JDPesca</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+    @if ( User.IsInRole("Administrator")){
+
+						<li><a asp-area="" asp-controller="Categories" asp-action="Index"><i class="fa fa-archive" aria-hidden="true"></i> Categorias</a></li>
+
+                        <li><a asp-area="" asp-controller="Products" asp-action="Index"><i class="fa fa-list" aria-hidden="true"></i> Productos</a></li>   
+                        						
+						<li><a asp-area="" asp-controller="Contact" asp-action="ContactList"><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a></li>   
+
+                  }
+
+              @if(SignInManager.IsSignedIn(User)){
+
+                     <li><a asp-area="" asp-controller="Orders" asp-action="Index"><i class="fa fa-book" aria-hidden="true"></i> Ordenes</a></li> 
+                        
+                }
+
+                </ul>
+                @await Html.PartialAsync("_LoginPartial")
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+
+        <footer>
+            <p>&copy; 2017 - JDPesca</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+
+
+
+    <!--Modal View-->
+               <div class="modal fade" tabindex="-1" id="loginModal"  
+                         data-keyboard="false" data-backdrop="static">  
+                        <div class="modal-dialog modal-lg">  
+                            <div class="modal-content">  
+                                <div class="modal-header">  
+                                    <button type="button" class="close" data-dismiss="modal">  
+                                        ×  
+                                    </button>  
+								
+                                    <h4 class="modal-title">Carrito</h4>  
+                                </div>  
+                                <div class="modal-body">  
+
+					<p id="userid" type="hidden" style="display:none;" >@UserManager.GetUserId(User) </p>
+
+								<i id="spinner" class="fa fa-spinner fa-spin" style="font-size:48px"></i>
+					
+						<div class="panel panel-primary">  
+    <div class="panel-heading">  
+        
+								
+    </div>   <!--en dof panel-heading -->
+    <div class="panel-body">  
+        <table class="table table-bordered" id="Table">  
+            <tr>  
+                <th>ProductID</th>  
+                <th>Amount</th>  
+				<th>Price</th>  
+                <th>SubTotal</th> 
+		        <th>Eliminar</th> 
+            </tr>   <!--end of table-row -->
+        </table>   <!--end of table -->
+    </div> <!--end of Panel-body -->      
+</div> <!--end of Panel -->  
+						
+                                </div>  
+                                <div class="modal-footer">  
+								     
+								    <p  id="Total">Total = </p>
+	                             <button style="float:left;" class='btn btn-danger' onClick='EmptyBasket(this.value)' value="@UserManager.GetUserId(User)">Vaciar Carrito <span class=' glyphicon glyphicon-trash'></span></button>
+            
+								<a class="btn btn-primary button button4" asp-controller="Orders" asp-action="Create" asp-route-id="@UserManager.GetUserId(User)">Procesar Orden</a>						
+                                </div>  
+                            </div>  
+                        </div>  
+
+<!--					Delete Msg-->
+<div id="DeletedMsg" style="z-index: 10;" class="container alert alert-danger">
+  <strong>Item Borrado!</strong> Se borro con exito del carrito!
+</div>
+                    </div>  
+		    <!--Modal View-->
+</body>
+</html>
+
+  <script type="text/javascript">  
+
+	    var itemsArray = [];
+		var total = 0;
+        $(document).ready(function () {  
+
+			loadBasket();
+
+         $('#DeletedMsg').hide();
+			
+            $("#btnShowModal").click(function () {  
+
+	$("#loginModal").modal('show');
+
+    $('#spinner').show();
+			
+    $("#Table").find("tr:gt(0)").remove();
+
+	//var url = "http://localhost:5000/api/shoppingbasket/getUserBasket?userID=" + $("#userid").text() ;
+
+    var url = "http://jdpesca.azurewebsites.net/api/shoppingbasket/getUserBasket?userID=" + $("#userid").text() ;
+    
+            
+ $.ajax({  
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (data) {  
+			$('#spinner').hide();
+                //alert(JSON.stringify(data));                  
+                $("#DIV").html('');   
+                var DIV = ''; 
+
+			total = 0;
+
+			itemsArray = data;
+			
+                $.each(data, function (i, item) {  
+
+			var itemcount = parseInt($("#badgeText").text());
+			
+			 $("#badgeText").text(i+1);
+
+                var subtotal = item.price * item.amount;
+
+                var borrarHref = 'api/ShoppingBasket/DeleteItem/'+item.shoppingBasketID;
+
+                var shoppingBasketID = item.shoppingBasketID;
+
+                    var rows = "<tr id="+shoppingBasketID+">" +   
+                        "<td id='ProductName'>" + item.productName + "</td>" +  
+                        "<td id='Amount'>" + item.amount + "</td>" + 
+			"<td id='Price'>" + item.price + "</td>" +
+			"<td id='Subtotal'>" + subtotal + "</td>" +
+			"<td>" + " <button class='btn btn-danger' onClick='deleteItem(this.value)' value="+ shoppingBasketID +">Borrar <span class=' glyphicon glyphicon-trash'></span></button>" + "</td>" +
+                        "</tr>";  
+                    $('#Table').append(rows);  
+
+			total = total + subtotal;            
+			
+                }); //End of foreach Loop  
+
+
+			document.getElementById("Total").innerHTML = 'Total = $'+total;
+			
+                console.log(data);  
+            }, //End of AJAX Success function  
+  
+            failure: function (data) {  
+                //alert(data.responseText);  
+            }, //End of AJAX failure function  
+            error: function (data) {  
+                //alert(data.responseText);  
+            } //End of AJAX error function  
+  
+        });  
+
+	
+            });  
+			
+  
+            $("#btnHideModal").click(function () {  
+                $("#loginModal").modal('hide');  
+            });  
+
+
+
+}); 
+                     
+
+    </script>  
+
+		<script>
+
+			function loadBasket() {
+
+
+            //var url = "http://localhost:5000/api/shoppingbasket/getUserBasket?userID=" + $("#userid").text() ;
+                    var url = "http://jdpesca.azurewebsites.net/api/shoppingbasket/getUserBasket?userID=" + $("#userid").text() ;
+
+
+ $.ajax({  
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (data) {  
+            $('#spinner').hide();
+                //alert(JSON.stringify(data));                  
+                $("#DIV").html('');   
+                var DIV = ''; 
+
+            total = 0;
+
+            itemsArray = data;
+            
+                $.each(data, function (i, item) {  
+
+            var itemcount = parseInt($("#badgeText").text());
+            
+             $("#badgeText").text(i+1);
+
+               
+                }); //End of foreach Loop  
+
+
+            document.getElementById("Total").innerHTML = 'Total = $'+total;
+            
+                console.log(data);  
+            }, //End of AJAX Success function  
+  
+            failure: function (data) {  
+                //alert(data.responseText);  
+            }, //End of AJAX failure function  
+            error: function (data) {  
+                //alert(data.responseText);  
+            } //End of AJAX error function  
+  
+        }); 
+
+			
+			}
+			
+function deleteItem(item) {
+			
+    //alert(item);
+
+	var url = '/api/shoppingbasket/DeleteItem';
+
+   
+    $.ajax({  
+            type: "POST",  
+            url: url,
+			 data: item,
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (data) {  
+
+                //alert(JSON.stringify(data)); 
+                $('#DeletedMsgs').stop();
+			
+                        var index = itemsArray.findIndex(x => x.shoppingBasketID == item);
+
+                        total = total - itemsArray[index].price;
+
+        			    document.getElementById("Total").innerHTML = 'Total = $'+total;
+        			
+           			    itemsArray.splice(index, 1);
+
+			
+            $("#"+item).fadeOut(500);
+
+			var itemcount = parseInt($("#badgeText").text());
+            
+            $("#badgeText").text(itemcount-1);
+
+			if($("#badgeText").text() == 0){
+             $("#badgeText").fadeOut(1000);
+			}
+			
+            $('#DeletedMsg').fadeIn(1000, function(){
+
+            $('#DeletedMsg').fadeOut(3000);
+        });
+
+            }, //End of AJAX Success function  
+  
+            failure: function (data) {  
+                alert(data.responseText);  
+            }, //End of AJAX failure function  
+            error: function (data) {  
+                alert(data.responseText);  
+            } //End of AJAX error function  
+  
+        });  
+        		
+  }
+
+
+  function EmptyBasket(id) {
+
+ 
+			
+var url = '/api/shoppingbasket/EmptyBasket?userID=' + id;
+            
+ $.ajax({  
+            type: "GET",  
+            url: url,  
+            contentType: "application/json; charset=utf-8",  
+            dataType: "json",  
+            success: function (data) {  
+
+
+            }, //End of AJAX Success function  
+  
+            failure: function (data) {  
+                alert(data.responseText);  
+            }, //End of AJAX failure function  
+            error: function (data) {  
+                
+			 $("#badgeText").text('0');
+             $("#badgeText").fadeOut(1000);
+			 $("#loginModal").modal('hide');
+
+			} //End of AJAX error function  
+  
+        }); 
+
+            
+            }
+</script>
+
+
+		

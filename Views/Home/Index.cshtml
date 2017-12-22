@@ -1,0 +1,126 @@
+﻿@model IEnumerable<JDPesca.Models.Products>
+
+
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1>JD Pesca</h1>      
+    <p>Tienda Online</p>
+
+  </div>
+</div>
+
+<p id="ProdId" type="hidden" style="display:none;" >@UserManager.GetUserId(User) </p>
+<div class="container center-block">  
+      <div class="row">
+@foreach (var item in Model) {
+
+	<div class="col-sm-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading" style="max-height:50px;"> <p class="text-center">@Html.DisplayFor(modelItem => item.Name)</p></div>
+     <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductsID">  
+
+		
+            <div class="thumbnail">
+                <div class="img-wrapper">
+
+								<img src="@Html.DisplayFor(modelItem => item.Name)" class="img-responsive" style="width:100%;" alt="Image">
+                          </div>
+			
+						</div>
+					   </a>
+
+        <div class="panel-footer text-center">$@Html.DisplayFor(modelItem => item.Price)<a class= "btn"  onClick = "addItem(@Html.DisplayFor(modelItem => item.ProductsID));">
+          <span style="color:grey" class="glyphicon glyphicon-shopping-cart"></span>
+        </a></div>
+      </div>
+    </div>
+
+
+}
+      </div>
+</div>
+
+	
+		<!--                  Added Msg-->
+<div id="AddedMsg" style="z-index: 10;" class="fixedBtn fixedMsg container alert alert-success">
+  <strong>Item Agregado!</strong> Se agrego con exito del carrito!
+</div>
+
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+
+<script type="text/javascript">
+$('#AddedMsg').hide();
+
+			
+   function addItem(ProdId) {
+
+var myData = {UserID:$("#ProdId").text(),ProductID:ProdId,Amount:1};
+
+    var val = JSON.stringify(myData);
+
+
+$.ajax({
+  type: 'POST',
+  dataType: 'html',
+  url: '/api/shoppingbasket/create',
+  contentType: 'application/json',
+  data: val,
+  success: function (xhr, status, response) {
+
+			$('#AddedMsg').stop();
+
+   $('#AddedMsg').fadeIn(300, function(){
+
+            $('#AddedMsg').delay(1500).fadeOut(1000);
+        });
+			
+    //alert('Se guardo!' + response.responseText);
+
+			
+        var itemcount = parseInt($("#badgeText").text());
+
+        if(isNaN(itemcount)){
+        itemcount = 0;
+			}
+			
+			$("#badgeText").text(itemcount+1);
+			$("#badgeText").fadeIn(500);
+			
+  },
+  error: function (err) {
+    
+  }
+});
+
+
+
+
+    
+
+}
+
+    
+    $(document).ready(function () {  
+
+
+
+    
+           
+    });  
+</script>  

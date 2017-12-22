@@ -1,0 +1,60 @@
+﻿@model IEnumerable<JDPesca.Models.OrdersViewModels.IndexViewModel>
+
+@{
+    ViewData["Title"] = "Ordenes";
+}
+
+<h2>Ordenes</h2>
+
+<!--<p>
+    <a class="btn btn-warning" data-toggle="tooltip" title="Crear" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Create New</a>
+</p>-->
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Orders.OrdersID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                 <th>
+                @Html.DisplayNameFor(model => model.Orders.Status)  
+                </th>
+                <th>
+                   Borrar
+                </th>
+			                <th>
+                   Detalles
+                </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Orders.OrdersID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User)
+            </td> 
+			            <td>
+                @Html.DisplayFor(modelItem => item.Orders.Status)
+            </td> 
+          <td>
+             <a class="btn btn-danger" data-toggle="tooltip" title="Borrar" asp-action="Delete" asp-route-id="@item.Orders.OrdersID"><span class="glyphicon glyphicon-trash"></span></a>
+               
+         </td> 
+         <td>
+             <a class="btn btn-info" data-toggle="tooltip" title="Ver Productos" asp-action="Details" asp-route-id="@item.Orders.OrdersID"><span class="glyphicon glyphicon-eye-open"></span></a>
+         </td> 
+        </tr>
+}
+    </tbody>
+</table>
+
+<script>
+
+</script>

@@ -1,0 +1,75 @@
+﻿@model JDPesca.Models.OrdersViewModels.OrderDetailViewModel
+
+@{
+    ViewData["Title"] = "Ordenes";
+    var Amount = 0;
+}
+
+<a asp-action="Index">Volver a Lista</a>
+
+<h2>Orden  @Html.DisplayFor(model => model.Orders.OrdersID)</h2>
+
+<h4>Creada por Usuario: @Html.DisplayFor(model => model.UserName) </h4>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products[0].Name)
+                </th>
+
+			                                <th>
+                    @Html.DisplayNameFor(model => model.Products[0].Category)
+                </th>
+			                <th>
+                    @Html.DisplayNameFor(model => model.OrdersDetails[0].Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Products[0].Price)
+                </th>
+
+
+			
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Products) {
+        <tr>
+ <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+                        <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+
+              <td>
+			@foreach (var item2 in Model.OrdersDetails) {
+
+            if(item2.ProductID == item.ProductsID){
+
+                Amount = item2.Amount;
+
+                @Html.DisplayFor(modelItem2 => item2.Amount)
+
+				}
+			}
+				 </td>
+            <td>	
+            @{
+                string priceString = (string)item.Price;                       
+                int price = Convert.ToInt32(priceString);
+                }
+				$@{ @(price *Amount) }
+               
+            </td>
+
+       </tr>
+}
+    </tbody>
+</table>
+
+<script>
+
+</script>

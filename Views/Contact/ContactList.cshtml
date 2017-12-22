@@ -1,0 +1,80 @@
+@model IEnumerable<JDPesca.Models.ApplicationUser>
+
+@{
+    ViewData["Title"] = "Usuarios";
+}
+
+<h2>Lista de Usuarios</h2>
+
+<br>
+
+<p>
+	<input class="form-control" id="myInput" type="text" placeholder="Buscar...">
+</p>
+
+  <br>
+
+<table class="table">
+
+    <thead>
+        <tr>
+                <th>
+                    Usuario
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Email Confirmado
+                </th>
+                <th>
+                    Telefono de Contacto
+                </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody id="myTable">
+@foreach (var item in Model) {
+	
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+            <td>
+				
+                @Html.DisplayFor(modelItem => item.EmailConfirmed)
+			
+            </td>
+		
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+            </td>
+        </tr>
+			
+}
+    </tbody>
+</table>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

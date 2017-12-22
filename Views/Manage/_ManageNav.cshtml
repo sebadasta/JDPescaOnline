@@ -1,0 +1,20 @@
+﻿@using JDPesca.Views.Manage
+@inject SignInManager<ApplicationUser> SignInManager
+@{
+    var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
+}
+
+<ul class="nav nav-pills nav-stacked">
+    <li class="@ManageNavPages.IndexNavClass(ViewContext)"><a asp-action="Index">Profile</a></li>
+    <li class="@ManageNavPages.ChangePasswordNavClass(ViewContext)"><a asp-action="ChangePassword">Password</a></li>
+
+
+    @if ( User.IsInRole("Administrator") ){
+
+
+                      <li class="@ManageNavPages.SetRolesNavClass(ViewContext)"><a asp-action="SetRoles">Roles</a></li>
+
+                        }
+
+	</ul>
+

@@ -1,0 +1,43 @@
+﻿@model SetRolesViewModel
+@{
+    ViewData["Title"] = "Editar Roles";
+    ViewData.AddActivePage(ManageNavPages.SetRoles);
+}
+
+<h4>@ViewData["Title"]</h4>
+@Html.Partial("_StatusMessage", Model.StatusMessage)
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+			<div class="form-group">
+                <label asp-for="UserID"></label>
+
+                  <select asp-for="UserID" class="form-control" asp-items="@ViewBag.UList">
+                    
+                    </select>
+				
+                <span asp-validation-for="UserID" class="text-danger"></span>
+            </div>
+			
+            <div class="form-group">
+                <label asp-for="Role"></label>
+
+                     <select asp-for="Role" class="form-control" asp-items="@ViewBag.RList">
+                    
+                    </select>
+
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-default">Cambiar Rol</button>
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

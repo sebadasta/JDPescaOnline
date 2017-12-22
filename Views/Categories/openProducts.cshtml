@@ -1,0 +1,77 @@
+﻿@model IEnumerable<JDPesca.Models.Products>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Products in @Html.DisplayFor(model => model.FirstOrDefault().Category.CategoryName)</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                            <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+
+			                            <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+
+			                                     <th>
+                   Detalles
+                </th>
+			                                              <th>
+                   Editar
+                </th>
+			                                              <th>
+                   Borrar
+                </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+		
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                $@Html.DisplayFor(modelItem => item.Price)
+            </td>
+                        <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+
+			                        <td>
+                @Html.DisplayFor(modelItem => item.Category.CategoryName)
+            </td>
+
+
+ <td>
+                <a class="btn btn-info" data-toggle="tooltip" title="Detalles" asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductsID"><span class="glyphicon glyphicon-eye-open"></span></a>
+          </td>
+          <td>
+             <a class="btn btn-success" data-toggle="tooltip" title="Editar" asp-controller="Products" asp-action="Edit" asp-route-id="@item.ProductsID"><span class="glyphicon glyphicon-edit"></span></a>
+               
+         </td> 
+         <td>
+             <a class="btn btn-danger" data-toggle="tooltip" title="Borrar" asp-controller="Products" asp-action="Delete" asp-route-id="@item.ProductsID"><span class="glyphicon glyphicon-trash"></span></a>
+         </td> 
+        </tr>
+}
+    </tbody>
+</table>
+
+<a class="btn btn-info" asp-action="Index"><span class="glyphicon glyphicon-menu-left"></span> Volver</a>
+
+

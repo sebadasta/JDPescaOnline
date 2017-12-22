@@ -1,0 +1,114 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/*Fixed Msg for add items to cart*/
+
+.fixedMsg {
+    position: fixed;
+    bottom: 10px;
+    left: 5%; /* relative to nearest positioned ancestor or body element */
+    right:5%;
+    text-align:center;
+}
+
+
+/*Fixed button form cart*/
+.badge-notify {
+    background: red;
+    position: relative;
+    top: -20px;
+    left: -15px;
+}
+
+
+
+
+.fixedBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index:1000;
+}
+
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+    border-radius: 25px;
+    outline: none;
+}
+
+.btn-circle.btn-lg:active, .btn-circle.btn-lg:focus {
+        outline: none;
+    }
+
+.btn-black {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid;
+}
+
+/*Fixed button form cart End*/
+
+
+
+    /* Wrapping element */
+    /* Set some basic padding to keep content from hitting the edges */
+    .body-content {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"] {
+    width: 100%;
+}
+
+/* QR code generator */
+#qrCode {
+    margin: 15px;
+}
+
+
+/* Home Items */
+
+     
+
+.thumbnail img {
+    max-width: 100%; /* do not stretch the bootstrap column */
+}
+
+.img-wrapper {
+    width: 100%;
+    padding-bottom: 150%; /* your aspect ratio here! */
+    position: relative;
+}
+
+    .img-wrapper img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        /*  */
+        min-height: 100%; /*optional: if you want the smallest images to fill the .thumbnail */
+    }
+    /* End Home Items */
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+    /* Hide captions */
+    .carousel-caption {
+        display: none;
+    }
+}
