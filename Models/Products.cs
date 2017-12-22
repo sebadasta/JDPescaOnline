@@ -15,8 +15,10 @@ namespace JDPesca.Models
 		public string Description { get; set; }
         		
         public string Price { get; set; }
-        public byte[] Image1 { get; set; }
-        public byte[] Image2 { get; set; }
+
+        public string Image1 { get; set; }
+        public string Image2 { get; set; }
+        public string Image3 { get; set; }
 
         [Required]
         public string Status { get; set; }

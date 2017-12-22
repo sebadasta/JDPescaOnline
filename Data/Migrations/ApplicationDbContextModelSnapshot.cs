@@ -148,9 +148,11 @@ namespace JDPesca.Data.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Image1");
+                    b.Property<string>("Image1");
 
-                    b.Property<byte[]>("Image2");
+                    b.Property<string>("Image2");
+
+                    b.Property<string>("Image3");
 
                     b.Property<string>("Name")
                         .IsRequired();

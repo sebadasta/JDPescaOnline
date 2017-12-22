@@ -200,7 +200,9 @@ namespace JDPesca.Controllers
             product.Description = editModel.Products.Description;
             product.Price = editModel.Products.Price;
             product.Status = editModel.Products.Status;
-
+            product.Image1 = editModel.Products.Image1;
+            product.Image2 = editModel.Products.Image2;
+            product.Image3 = editModel.Products.Image3;
 
             var cate = await _context.Categories
                                      .SingleOrDefaultAsync(m => m.CategoriesID == editModel.CategoryID);
