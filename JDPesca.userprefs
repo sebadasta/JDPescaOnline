@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{4CEEE0D7-94AE-41E0-933B-30A07EC1C86F}|Default">
   <MonoDevelop.Ide.ItemProperties.JDPesca PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="JDPesca Status">
+  <MonoDevelop.Ide.Workbench ActiveDocument=".gitignore">
     <Files>
       <File FileName="Views/Shared/_Layout.cshtml" Line="250" Column="26" />
       <File FileName="Views/Shared/_LoginPartial.cshtml" Line="23" Column="87" />
@@ -8,11 +8,12 @@
       <File FileName="Views/Contact/Delete.cshtml" Line="1" Column="1" />
       <File FileName="Views/Contact/ContactList.cshtml" Line="25" Column="29" />
       <File FileName="Views/Contact/Index.cshtml" Line="60" Column="21" />
-      <File FileName="Services/EmailSender.cs" Line="16" Column="13" />
       <File FileName="Services/IEmailSender.cs" Line="1" Column="1" />
-      <File FileName="appsettings.json" Line="3" Column="97" />
-      <File FileName="Views/Account/ConfirmEmail.cshtml" Line="2" Column="43" />
+      <File FileName="appsettings.json" Line="20" Column="85" />
+      <File FileName="Views/Account/ConfirmEmail.cshtml" Line="11" Column="1" />
       <File FileName="JDPesca Status" />
+      <File FileName="appsettings.Development.json" Line="22" Column="85" />
+      <File FileName=".gitignore" Line="3" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
