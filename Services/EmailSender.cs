@@ -14,13 +14,12 @@ namespace JDPesca.Services
         public Task SendEmailAsync(string email, string subject, string message)
         {
             
-
             return Execute(subject, message, email);
         }
 
         public Task Execute(string subject, string message, string email)
         {
-            var client = new SendGridClient("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");
+            var client = new SendGridClient("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");
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("noreply@jdpesca.com", "JDPesca"),

@@ -2,13 +2,16 @@
   <MonoDevelop.Ide.ItemProperties.JDPesca PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="JDPesca Status">
     <Files>
-      <File FileName="appsettings.Development.json" Line="9" Column="100" />
       <File FileName="Views/Shared/_Layout.cshtml" Line="250" Column="26" />
       <File FileName="Views/Shared/_LoginPartial.cshtml" Line="23" Column="87" />
       <File FileName="Controllers/ContactController.cs" Line="206" Column="9" />
       <File FileName="Views/Contact/Delete.cshtml" Line="1" Column="1" />
       <File FileName="Views/Contact/ContactList.cshtml" Line="25" Column="29" />
       <File FileName="Views/Contact/Index.cshtml" Line="60" Column="21" />
+      <File FileName="Services/EmailSender.cs" Line="16" Column="13" />
+      <File FileName="Services/IEmailSender.cs" Line="1" Column="1" />
+      <File FileName="appsettings.json" Line="3" Column="97" />
+      <File FileName="Views/Account/ConfirmEmail.cshtml" Line="2" Column="43" />
       <File FileName="JDPesca Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
