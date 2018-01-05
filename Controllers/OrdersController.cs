@@ -9,6 +9,7 @@ using JDPesca.Models;
 using JDPesca.Data;
 using JDPesca.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using JDPesca.Services;
 
 
 namespace JDPesca.Controllers
@@ -20,16 +21,19 @@ namespace JDPesca.Controllers
         private readonly ApplicationDbContext _context;
         private readonly IAuthorizationService _authorizationService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IEmailSender _emailSender;
 
 
         public OrdersController(
 ApplicationDbContext context,
 IAuthorizationService authorizationService,
+IEmailSender emailSender,
 UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
             _authorizationService = authorizationService;
+            _emailSender = emailSender;
         }
 
 
@@ -209,7 +213,30 @@ UserManager<ApplicationUser> userManager)
         }
 
 
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delivered(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var Order = await _context.Orders.SingleOrDefaultAsync(m => m.OrdersID == id);
+
+            var user =await _userManager.FindByIdAsync(Order.UserId);
+
+            var userEmail = _userManager.GetEmailAsync(user);
+
+            Order.Status = "Entregado";
+
+            _context.Update(Order);
+
+            _context.SaveChanges();
+
+            await _emailSender.SendDeliverEmailAsync(userEmail.Result.ToString(), Order.OrdersID.ToString());
+
+            return RedirectToAction("Index");
+        }
 
     }
 }

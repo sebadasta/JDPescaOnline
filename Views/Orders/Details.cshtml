@@ -5,6 +5,7 @@
     var Amount = 0;
 }
 
+<br>
 <a asp-action="Index">Volver a Lista</a>
 
 <h2>Orden  @Html.DisplayFor(model => model.Orders.OrdersID)</h2>
@@ -69,6 +70,12 @@
 }
     </tbody>
 </table>
+
+
+@if(Model.Orders.Status == "Pendiente" &&User.IsInRole("Administrator")){
+    <a class="btn btn-success" data-toggle="tooltip" title="Entregado"  asp-action="Delivered" asp-route-id="@Model.Orders.OrdersID"><span class="glyphicon glyphicon-send"></span> Entregado</a>
+
+}
 
 <script>
 

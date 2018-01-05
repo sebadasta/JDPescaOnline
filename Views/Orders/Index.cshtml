@@ -6,9 +6,7 @@
 
 <h2>Ordenes</h2>
 
-<!--<p>
-    <a class="btn btn-warning" data-toggle="tooltip" title="Crear" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Create New</a>
-</p>-->
+
 <table class="table">
     <thead>
         <tr>
@@ -21,9 +19,11 @@
                  <th>
                 @Html.DisplayNameFor(model => model.Orders.Status)  
                 </th>
+             @if(User.IsInRole("Administrator")){
                 <th>
                    Borrar
                 </th>
+            }
 			                <th>
                    Detalles
                 </th>
@@ -40,16 +40,30 @@
             <td>
                 @Html.DisplayFor(modelItem => item.User)
             </td> 
-			            <td>
-                @Html.DisplayFor(modelItem => item.Orders.Status)
-            </td> 
-          <td>
-             <a class="btn btn-danger" data-toggle="tooltip" title="Borrar" asp-action="Delete" asp-route-id="@item.Orders.OrdersID"><span class="glyphicon glyphicon-trash"></span></a>
+	
+                  @{var status =item.Orders.Status;}
+            
+                @if(status == "Entregado"){
+                 <td>
+                <h4><span class="label label-success"> @Html.DisplayFor(modelItem => item.Orders.Status) </span></h4>
+                 </td> 
+                }else{
+                    <td>
+                        <h4><span class="label label-warning"> @Html.DisplayFor(modelItem => item.Orders.Status) </span></h4>
+                 </td> 
+                }
+
+               @if(User.IsInRole("Administrator")){
+
+            <td>
+             <a class="btn btn-danger" data-toggle="tooltip" title="Borrar" asp-action="Delete" asp-route-id="@item.Orders.OrdersID"><span class="glyphicon glyphicon-trash"></span></a>    
+          </td> 
+            }
                
-         </td> 
          <td>
              <a class="btn btn-info" data-toggle="tooltip" title="Ver Productos" asp-action="Details" asp-route-id="@item.Orders.OrdersID"><span class="glyphicon glyphicon-eye-open"></span></a>
          </td> 
+            
         </tr>
 }
     </tbody>
