@@ -1,22 +1,22 @@
 ﻿@model IEnumerable<JDPesca.Models.Categories>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Categorias";
 }
 
-<h2>Categories</h2>
+<h2>Categorias</h2>
 
 <p>
-    <a class="btn btn-warning" data-toggle="tooltip" title="Crear" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Create New</a>
+    <a class="btn btn-warning" data-toggle="tooltip" title="Crear" asp-action="Create"><span class="glyphicon glyphicon-plus"></span> Nueva Categoria</a>
 </p>
 <table class="table">
     <thead>
         <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.CategoriesID)
+                    ID
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.CategoryName)
+                    Categoria
                 </th>
 	             <th>
                     Editar

@@ -43,9 +43,9 @@ namespace JDPesca.Controllers
                            select c;
 
 
-            products = products.Where(product => product.Status == "Publicado");
+            products = products.Where(product => product.Status == "Publicado").Include(pro => pro.Category);
 
-
+            var choto = await products.ToListAsync() ;
 
             return View(await products.ToListAsync());
 

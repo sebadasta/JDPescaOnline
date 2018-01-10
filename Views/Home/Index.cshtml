@@ -7,7 +7,7 @@
 @inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "JDPesca";
 }
 
 <div class="jumbotron">
@@ -21,13 +21,14 @@
 <p id="ProdId" type="hidden" style="display:none;" >@UserManager.GetUserId(User) </p>
 <div class="container center-block">  
       <div class="row">
+                
 @foreach (var item in Model) {
 
 	<div class="col-sm-4">
       <div class="panel panel-primary">
-        <div class="panel-heading" style="max-height:50px;"> <p class="text-center">@Html.DisplayFor(modelItem => item.Name)</p></div>
+        <div class="panel-heading" style="max-height:50px;"> <p class="text-center">@Html.DisplayFor(modelItem => item.Name)     <span class="label label-warning"> @Html.DisplayFor(modelItem => item.Category.CategoryName)</span></p></div>
      <a asp-controller="Products" asp-action="Details" asp-route-id="@item.ProductsID">  
-
+                                
 		
             <div class="thumbnail">
                 <div class="img-wrapper">
@@ -40,14 +41,20 @@
 
         <div class="panel-footer text-center">$@Html.DisplayFor(modelItem => item.Price)<a class= "btn"  onClick = "addItem(@Html.DisplayFor(modelItem => item.ProductsID));">
           <span style="color:grey" class="glyphicon glyphicon-shopping-cart"></span>
-        </a></div>
+        </a>
+                        </div>
       </div>
     </div>
 
 
 }
+
+                
       </div>
 </div>
+
+
+
 
 	
 		<!--                  Added Msg-->

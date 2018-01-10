@@ -19,7 +19,7 @@ namespace JDPesca.Services
 
         public Task Execute(string subject, string message, string email)
         {
-            var client = new SendGridClient("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");
+            var client = new SendGridClient("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");
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("noreply@jdpesca.com", "JDPesca"),

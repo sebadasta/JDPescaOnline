@@ -10,6 +10,7 @@ using JDPesca.Data;
 using JDPesca.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using JDPesca.Services;
+using SendGrid.Helpers.Mail;
 
 
 namespace JDPesca.Controllers
@@ -165,6 +166,21 @@ UserManager<ApplicationUser> userManager)
             }
 
             await _context.SaveChangesAsync();
+
+            var AdminUsers = _userManager.GetUsersInRoleAsync("Administrator").Result;
+
+            var EmailList = new List<EmailAddress>();
+                
+            foreach(ApplicationUser user in AdminUsers)
+            {
+                EmailList.Add(new EmailAddress(user.Email));
+
+            }
+
+
+            await _emailSender.OrderCreatedEmailAsync(EmailList, newOrder.OrdersID.ToString());
+
+
 
             return RedirectToAction("Index"); 
         }
