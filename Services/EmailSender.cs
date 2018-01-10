@@ -11,15 +11,15 @@ namespace JDPesca.Services
     // For more details see https://go.microsoft.com/fwlink/?LinkID=532713
     public class EmailSender : IEmailSender
     {
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task SendEmailAsync(string email, string subject, string message, List<EmailAddress> EmailList)
         {
             
-            return Execute(subject, message, email);
+            return Execute(subject, message, email, EmailList);
         }
 
-        public Task Execute(string subject, string message, string email)
+        public Task Execute(string subject, string message, string email, List<EmailAddress> EmailList)
         {
-            var client = new SendGridClient("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");
+           
             var msg = new SendGridMessage()
             {
                 From = new EmailAddress("noreply@jdpesca.com", "JDPesca"),
@@ -27,7 +27,17 @@ namespace JDPesca.Services
                 PlainTextContent = message,
                 HtmlContent = message
             };
-            msg.AddTo(new EmailAddress(email));
+
+
+            if(EmailList.Count == 0){
+                
+                msg.AddTo(new EmailAddress(email));
+
+            }else{
+                
+                msg.AddTos(EmailList);
+            }
+
             return client.SendEmailAsync(msg);
         }
     }
